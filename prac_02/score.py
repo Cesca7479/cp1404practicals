@@ -30,6 +30,7 @@ def determine_result(score):
 
     # All 'elif's were replaced with 'if' statements, and else was removed as the function will have
     # already returned to main() if any of the previous statements were true.
+    # This was suggested by pylint
 
 
 main()
