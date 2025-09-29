@@ -7,7 +7,7 @@ MENU = "(G)et a valid score \n(P)rint result\n(S)how stars\n(Q)uit"
 
 def main():
     """ Receive score, show result, print stars """
-    score = ""
+    score = get_valid_score()
     print(MENU)
     choice = input(">>> ").upper()
     while choice != "Q":
@@ -33,18 +33,8 @@ def get_valid_score():
     return score
 
 
-def is_empty(score):
-    """ Check if score is still empty. Is used twice """
-    if score == "":
-        print("Please input a score first")  # I wanted to give feedback to user instead of quitting
-        return True  # This feels inefficient
-    return False
-
-
 def print_result(score):
     """ Print result from score """
-    if is_empty(score):  # I wasn't sure how else to handle this, without repeating myself more.
-        return
     if score >= 90:
         print("Excellent")
     elif score >= 50:
@@ -55,8 +45,6 @@ def print_result(score):
 
 def show_stars(score):
     """ Print number of *'s for the size of score """
-    if is_empty(score):
-        return
     print("*" * score)
 
 
