@@ -28,3 +28,10 @@ else:
     else:
         print("Cannot divide by 0")
 print("Finished.")
+
+# code to put instead of the above if statement:
+# while denominator == 0:
+#     print("Please enter a non-zero denominator")
+#     denominator = int(input("Enter the denominator: "))
+
+# Use this code inside the try statement, and remove the if statement, by just putting the division inside the else
