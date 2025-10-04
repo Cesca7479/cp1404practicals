@@ -34,4 +34,5 @@ print("Finished.")
 #     print("Please enter a non-zero denominator")
 #     denominator = int(input("Enter the denominator: "))
 
-# Use this code inside the try statement, and remove the if statement, by just putting the division inside the else
+# Use this code inside the try statement, and remove the if statement,
+# by just putting the division inside the else
