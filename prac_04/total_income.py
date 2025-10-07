@@ -32,6 +32,9 @@ def print_report(incomes: list):
         income = incomes[month]
         total += income
         print("Month {:2} - Income: ${:10.2f} Total: ${:10.2f}".format(month + 1, income, total))
+        # print(f"Month {month + 1:2} - Income: ${income:10.2f} Total: ${total:10.2f}")
+        # The question only asked for the 'line that gets the income input' to be changed to an f-string.
+        # Just to be sure, I've provided my answer for the f-string for the output.
 
 
 main()
