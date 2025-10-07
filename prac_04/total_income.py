@@ -25,6 +25,7 @@ def main():
 #         print("Month {:2} - Income: ${:10.2f} Total: ${:10.2f}".format(month, income, total))
 
 def print_report(incomes: list):
+    """Print report"""
     print("\nIncome Report\n-------------")
     total = 0
     for month in range(len(incomes)):
