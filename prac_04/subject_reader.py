@@ -7,6 +7,7 @@ FILENAME = "subject_data.txt"
 
 
 def main():
+    """Call functions to load subject details and print them"""
     subject_details = load_subject_details(FILENAME)
     print_subject_details(subject_details)
 
@@ -30,6 +31,7 @@ def load_subject_details(filename=FILENAME):
 
 
 def print_subject_details(data):
+    """Print data provided in format: subject, lecturer, number of students"""
     for part in data:
         print(f"{part[0]} is taught by {part[1]} and has {part[2]} students")
 
