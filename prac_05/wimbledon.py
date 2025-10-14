@@ -1,14 +1,15 @@
 """
 Wimbledon
 Estimate:  30 minutes
-Actual:     minutes
+Actual:    35 minutes
 """
 FILENAME = 'wimbledon.csv'
 
 
 def main():
     lists = read_file(FILENAME)
-    champion_to_wins = process_data(lists)
+    champion_to_wins, countries_of_champions = process_data(lists)
+    display_information(champion_to_wins, countries_of_champions)
 
 
 def read_file(filename):
@@ -29,8 +30,13 @@ def process_data(lists):
     return champion_to_wins, sorted(set(countries_of_champions))
 
 
-def display_information():
-    pass
+def display_information(champion_to_wins, countries_of_champions):
+    print("Wimbledon Champions:")
+    for champion, wins in champion_to_wins.items():
+        print(champion, wins)
+    print()
+    print(f"These {len(countries_of_champions)} have won Wimbledon:")
+    print(", ".join(countries_of_champions))
 
 
 main()
