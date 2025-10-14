@@ -7,7 +7,8 @@ FILENAME = 'wimbledon.csv'
 
 
 def main():
-    print(read_file(FILENAME))
+    lists = read_file(FILENAME)
+    champion_to_wins = process_data(lists)
 
 
 def read_file(filename):
@@ -19,8 +20,11 @@ def read_file(filename):
     return lists
 
 
-def process_data():
-    pass
+def process_data(lists):
+    champion_to_wins = {}
+    for part in lists:
+        champion_to_wins[part[2]] = champion_to_wins.get(part[2], 0) + 1
+    return champion_to_wins
 
 
 def display_information():
