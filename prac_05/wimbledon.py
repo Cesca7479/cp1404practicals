@@ -22,9 +22,11 @@ def read_file(filename):
 
 def process_data(lists):
     champion_to_wins = {}
+    countries_of_champions = []
     for part in lists:
         champion_to_wins[part[2]] = champion_to_wins.get(part[2], 0) + 1
-    return champion_to_wins
+        countries_of_champions.append(part[1])
+    return champion_to_wins, sorted(set(countries_of_champions))
 
 
 def display_information():
