@@ -12,10 +12,10 @@ maximum_colour_length = max(len(colour) for colour in COLOUR_TO_HEX.keys())
 for colour, hex_code in COLOUR_TO_HEX.items():
     print(f"{colour:{maximum_colour_length}} is {hex_code}")
 
-state_code = input("Enter a colour: ").lower()
-while state_code != "":
+hex_code = input("Enter a colour: ").lower()
+while hex_code != "":
     try:
-        print(state_code, "is", COLOUR_TO_HEX_LOWER[state_code])
+        print(hex_code.title(), "is", COLOUR_TO_HEX_LOWER[hex_code])
     except KeyError:
         print("Invalid colour")
-    state_code = input("Enter a colour: ").lower()
+    hex_code = input("Enter a colour: ").lower()
