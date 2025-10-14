@@ -7,26 +7,26 @@ FILENAME = 'wimbledon.csv'
 
 
 def main():
-    lists = read_file(FILENAME)
-    champion_to_wins, countries_of_champions = process_data(lists)
+    matches = read_file(FILENAME)
+    champion_to_wins, countries_of_champions = process_data(matches)
     display_information(champion_to_wins, countries_of_champions)
 
 
 def read_file(filename):
-    lists = []
+    matches = []
     with open(filename, "r", encoding="utf-8-sig") as in_file:
         in_file.readline()
         for line in in_file:
-            lists.append(in_file.readline().split(","))
-    return lists
+            matches.append(line.split(","))
+    return matches
 
 
-def process_data(lists):
+def process_data(matches):
     champion_to_wins = {}
     countries_of_champions = []
-    for part in lists:
-        champion_to_wins[part[2]] = champion_to_wins.get(part[2], 0) + 1
-        countries_of_champions.append(part[1])
+    for match in matches:
+        champion_to_wins[match[2]] = champion_to_wins.get(match[2], 0) + 1
+        countries_of_champions.append(match[1])
     return champion_to_wins, sorted(set(countries_of_champions))
 
 
