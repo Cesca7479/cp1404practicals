@@ -1,4 +1,8 @@
-"""Class that contains information on a guitar"""
+"""
+Class that contains information on a guitar
+Estimated:   12
+Actual:      10
+"""
 
 CURRENT_YEAR = 2025
 VINTAGE_AGE = 50

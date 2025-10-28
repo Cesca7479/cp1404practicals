@@ -1,4 +1,8 @@
-"""Used to test the guitar class"""
+"""
+Used to test the guitar class
+Estimated:   5
+Actual:      7
+"""
 from prac_06.guitar import Guitar
 
 # CURRENT_YEAR = 2025
