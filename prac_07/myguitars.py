@@ -4,6 +4,7 @@ Read guitars.csv and use Guitar class to manipulate data.
 from prac_07.guitar import Guitar
 
 FILENAME = "guitars.csv"
+CURRENT_YEAR = 2025
 
 
 def main():
@@ -20,7 +21,7 @@ def get_guitars(guitars):
     name = input("Name: ")
     while name != "":
         year = get_valid_year()
-        cost = float(input("Cost: $"))
+        cost = get_valid_cost()
         new_guitar = Guitar(name, year, cost)
         guitars.append(new_guitar)
         print(f"{new_guitar} added.")
@@ -29,15 +30,33 @@ def get_guitars(guitars):
 
 
 def get_valid_year():
+    """Get a valid year."""
     is_valid = False
     while not is_valid:
         try:
             year = int(input("Year: "))
-            # can make sure year doesn't exceed CURRENT YEAR...
-            is_valid = True
+            if year > CURRENT_YEAR or year <= 0:
+                print("Invalid year")
+            else:
+                is_valid = True
         except ValueError:
             print("Invalid year")
     return year
+
+
+def get_valid_cost():
+    """Get a valid cost."""
+    is_valid = False
+    while not is_valid:
+        try:
+            cost = float(input("Cost: "))
+            if cost < 0:
+                print("Cost must be positive")
+            else:
+                is_valid = True
+        except ValueError:
+            print("Invalid Cost")
+    return cost
 
 
 def load_guitars(filename):
