@@ -1,7 +1,7 @@
 """
-Run through a menu that allows a user to load, display, filter, add and update projects
+Run through a menu that allows a user to load, display, filter, add and update projects.
 Estimated: 3 hrs
-Actual:
+Actual:    1 hr, 23 min
 """
 # Do I sort each time, or only when I display or save?
 import datetime
@@ -16,6 +16,7 @@ MENU = ("- (L)oad projects"
         "- (U)pdate project"
         "- (Q)uit")
 DEFAULT_FILENAME = "projects.txt"
+
 
 # TODO: Complete all functions
 
@@ -52,7 +53,7 @@ def main():
 
 
 def load_file(filename):
-    """Load contents of file and store Projects in a list"""
+    """Load contents of file and store Projects in a list."""
     projects = []
     with open(filename, "r", encoding="utf-8-sig") as in_file:
         in_file.readline()
@@ -69,14 +70,17 @@ def load_file(filename):
 
 
 def save_projects(filename, projects):
+    """Save projects to a chosen file."""
     pass
 
 
 def display_projects(projects):
+    """Display projects, sorted and in categories of completion status."""
     pass
 
 
 def filter_projects(projects):  # Do this or combine with display?
+    """Filter projects to display only those after a certain date."""
     pass  # Can adjust display to pass in a date, but let date be earliest date of a project for just displaying
 
 
@@ -84,10 +88,12 @@ def filter_projects(projects):  # Do this or combine with display?
 
 
 def add_project():
+    """Add a new project to the list."""
     pass
 
 
 def update_project(projects):
+    """Update a project's completion level."""
     pass
 
 
