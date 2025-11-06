@@ -3,7 +3,7 @@ Run through a menu that allows a user to load, display, filter, add and update p
 Estimated: 3 hrs
 Actual:
 """
-
+# Do I sort each time, or only when I display or save?
 import datetime
 
 from prac_07.project import Project
@@ -17,12 +17,38 @@ MENU = ("- (L)oad projects"
         "- (Q)uit")
 DEFAULT_FILENAME = "projects.txt"
 
+# TODO: Complete all functions
 
 def main():
     """Load default projects file, cycle through a menu, provide option to save file upon completion."""
     projects = load_file(DEFAULT_FILENAME)
     print("Welcome to Pythonic Project Management")
-    print(f"Loaded {len(projects)} projects from {DEFAULT_FILENAME}")
+    print(MENU)
+    choice = input(">>> ").upper()
+    while choice != "Q":
+        if choice == "L":
+            filename = input("Enter a file to load projects from: ")
+            new_projects = load_file(filename)
+            projects.append(new_projects)
+            projects.sort()
+        elif choice == "S":
+            filename = input("Enter a file to save projects to: ")
+            save_projects(filename, projects)
+        elif choice == "D":
+            display_projects(projects)
+        elif choice == "F":
+            filter_projects(projects)  # use display function here too
+        elif choice == "A":
+            add_project()
+        elif choice == "U":
+            update_project(projects)
+        else:
+            print("Invalid choice")
+        print(MENU)
+        choice = input(">>> ").upper()
+    decision = input(f"Would you like to save to {DEFAULT_FILENAME}")
+    # TODO: Do the thing to filter above decision
+    print("Thank you for using custom-built project management software.")
 
 
 def load_file(filename):
@@ -38,7 +64,31 @@ def load_file(filename):
             completion = float(parts[4])
             project = Project(parts[0], start_date, priority, cost, completion)
             projects.append(project)
-    return projects
+    print(f"Loaded {len(projects)} projects from {filename}")
+    return sorted(projects)
+
+
+def save_projects(filename, projects):
+    pass
+
+
+def display_projects(projects):
+    pass
+
+
+def filter_projects(projects):  # Do this or combine with display?
+    pass  # Can adjust display to pass in a date, but let date be earliest date of a project for just displaying
+
+
+# On second thought, no - print looks different
+
+
+def add_project():
+    pass
+
+
+def update_project(projects):
+    pass
 
 
 main()
