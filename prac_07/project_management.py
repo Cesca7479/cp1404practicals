@@ -83,8 +83,16 @@ def save_projects(filename, projects):  # filename
 
 def display_projects(projects):
     """Display projects, sorted and in categories of completion status."""
-    for project in projects:
-        print(f"  {project}")
+    incomplete_projects = [project for project in projects if not project.is_complete()]
+    completed_projects = [project for project in projects if project.is_complete()]
+    if incomplete_projects:
+        print("Incomplete projects:")
+        for project in incomplete_projects:
+            print(f"  {project}")
+    if completed_projects:
+        print("Completed projects:")
+        for project in completed_projects:
+            print(f"  {project}")
 
 
 def filter_projects(projects):  # Do this or combine with display?
