@@ -30,7 +30,7 @@ class Project:
         return self.completion == 100
 
     def is_after(self, date):
-        """Determine if a project was created after a certain date"""
+        """Determine if a project was created after a certain date."""
         return self.start_date >= date
 
     # Conflicting statement in instructions. Under filter projects by date, it says "display only projects that start

@@ -120,6 +120,7 @@ def get_new_project():
 
 
 def get_valid_float(string):
+    """Get a valid float."""
     valid_input = False
     while not valid_input:
         try:
@@ -148,7 +149,7 @@ def update_project(projects):
 
 
 def get_valid_input(string, maximum):
-    """Get a valid input from the user, which must be less than the maximum or blank"""
+    """Get a valid input from the user, which must be less than the maximum or blank."""
     valid_input = False
     while not valid_input:
         input_string = input(string)
