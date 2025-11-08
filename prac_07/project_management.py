@@ -17,6 +17,7 @@ MENU = """- (L)oad projects
 - (Q)uit"""
 DEFAULT_FILENAME = "projects.txt"
 LOWEST_PRIORITY = 10
+INPUT_REQUIRED_PROMPTS = ("Project choice: ", "Priority: ", "Percent complete: ")
 
 
 def main():
@@ -27,12 +28,12 @@ def main():
     choice = input(">>> ").upper()
     while choice != "Q":
         if choice == "L":
-            filename = input("Enter a file to load projects from: ")
+            filename = get_valid_string("Enter a file to load projects from: ")
             # new_projects = load_file(filename)
             # projects.append(new_projects)  # Do you want to keep the old projects, or just use new ones?
             projects = load_file(filename)
         elif choice == "S":
-            filename = input("Enter a file to save projects to: ")
+            filename = get_valid_string("Enter a file to save projects to: ")
             save_projects(filename, projects)
         elif choice == "D":
             display_projects(projects)
@@ -47,10 +48,13 @@ def main():
             print("Invalid choice")
         print(MENU)
         choice = input(">>> ").upper()
-    decision = list(input(f"Would you like to save to {DEFAULT_FILENAME}? ").upper().split())
+    # Googled how to stop .strip(",") from deleting white space after comma, found replace method
+    decision = list(input(f"Would you like to save to {DEFAULT_FILENAME}? ").replace(",", "").upper().split())
+    while "NO" not in decision and "YES" not in decision:
+        print("Sorry, I didn't understand. Try using yes or no.")
+        decision = list(input(f"Would you like to save to {DEFAULT_FILENAME}? ").replace(",", "").upper().split())
     if "YES" in decision:
         save_projects(DEFAULT_FILENAME, projects)
-        print(f"Projects saved to {DEFAULT_FILENAME}")
     print("Thank you for using custom-built project management software.")
 
 
@@ -79,6 +83,7 @@ def save_projects(filename, projects):  # filename
             print(
                 f"{project.name}\t{project.start_date.strftime("%d/%m/%Y")}\t{project.priority}\t{project.cost}\t"
                 f"{project.completion}", file=out_file)
+    print(f"{len(projects)} projects saved to {filename}")
 
 
 def display_projects(projects):
@@ -97,8 +102,7 @@ def display_projects(projects):
 
 def filter_projects(projects):
     """Filter projects to display only those after a certain date."""
-    date_string = input("Show projects that start after date (dd/mm/yy): ")
-    date = datetime.datetime.strptime(date_string, "%d/%m/%Y").date()
+    date = get_valid_date("Show projects that start after date (dd/mm/yy): ")
     projects_after_date = [project for project in sorted(projects, key=attrgetter('start_date')) if
                            project.is_after(date)]
     for project in projects_after_date:
@@ -110,13 +114,32 @@ def filter_projects(projects):
 def get_new_project():
     """Add a new project to the list."""
     print("Let's add a new project")
-    name = input("Name: ")
-    start_date_string = input("Start date (dd/mm/yy): ")
-    start_date = datetime.datetime.strptime(start_date_string, "%d/%m/%Y").date()
-    priority = get_valid_input("Priority: ", LOWEST_PRIORITY)
+    name = get_valid_string("Name: ")
+    start_date = get_valid_date("Start date (dd/mm/yy): ")
+    priority = get_valid_input("Priority: ", LOWEST_PRIORITY, 1)
     cost = get_valid_float("Cost estimate: $")
-    completion = get_valid_input("Percent complete: ", 100)
+    completion = get_valid_input("Percent complete: ", 100, 0)
     return Project(name, start_date, priority, cost, completion)
+
+
+def get_valid_string(prompt):
+    """Get a string from user, mustn't be blank."""
+    string = input(prompt)
+    while string == "":
+        string = input(prompt)
+    return string
+
+
+def get_valid_date(prompt):
+    valid_date = False
+    while not valid_date:
+        date_string = input(prompt)
+        try:
+            date = datetime.datetime.strptime(date_string, "%d/%m/%Y").date()
+            valid_date = True
+        except ValueError:
+            print("Invalid date")
+    return date
 
 
 def get_valid_float(string):
@@ -138,28 +161,28 @@ def update_project(projects):
     """Update a project's completion level."""
     for i, project in enumerate(projects):
         print(i, project)
-    choice = get_valid_input("Project choice: ", len(projects) - 1)
+    choice = get_valid_input("Project choice: ", len(projects) - 1, 0)
     print(projects[choice])
-    new_percentage = get_valid_input("New Percentage: ", 100)
-    new_priority = get_valid_input("New Priority: ", LOWEST_PRIORITY)
+    new_percentage = get_valid_input("New Percentage: ", 100, 0)
+    new_priority = get_valid_input("New Priority: ", LOWEST_PRIORITY, 1)
     if new_percentage:
         projects[choice].completion = new_percentage
     if new_priority:
         projects[choice].priority = new_priority
 
 
-def get_valid_input(string, maximum):
+def get_valid_input(string, maximum, minimum):
     """Get a valid input from the user, which must be less than the maximum or blank."""
     valid_input = False
     while not valid_input:
         input_string = input(string)
-        if input_string == "" and string != "Project choice: " and string != "Priority: " and string != "Percent complete: ":
+        if input_string == "" and string not in INPUT_REQUIRED_PROMPTS:
             return None
         else:
             try:
                 number = int(input_string)
-                if number < 0 or number > maximum:
-                    print(f"Number must be larger than 0 and smaller than {maximum}")
+                if number < minimum or number > maximum:
+                    print(f"Number must be at least {minimum} and smaller than or equal to {maximum}")
                 else:
                     valid_input = True
             except ValueError:
