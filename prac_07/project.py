@@ -18,8 +18,8 @@ class Project:
 
     def __repr__(self):
         """Return attributes in a formatted string."""
-        return (f"{self.name}, start: {self.start_date}, priority {self.priority}, estimate: {self.cost}, completion: "
-                f"{self.completion}%")
+        return (f"{self.name}, start: {self.start_date.strftime("%d/%m/%Y")}, priority {self.priority}, "
+                f"estimate: {self.cost}, completion: {self.completion}%")
 
     def __lt__(self, other):
         """Determine an order of projects, by priority."""
@@ -31,4 +31,8 @@ class Project:
 
     def is_after(self, date):
         """Determine if a project was created after a certain date"""
-        return self.start_date > date
+        return self.start_date >= date
+
+    # Conflicting statement in instructions. Under filter projects by date, it says "display only projects that start
+    # AFTER that date."
+    # Sample output displays projects that are ON OR AFTER that date

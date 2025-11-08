@@ -38,7 +38,7 @@ def main():
         elif choice == "D":
             display_projects(projects)
         elif choice == "F":
-            filter_projects(projects)  # use display function here too
+            filter_projects(projects)
         elif choice == "A":
             add_project()
         elif choice == "U":
@@ -92,15 +92,18 @@ def display_projects(projects):
     if completed_projects:
         print("Completed projects:")
         for project in completed_projects:
-            print(f"  {project}")
+            print(f"  {project}")  # I don't like the nesting here. Can I simplify this?
 
 
-def filter_projects(projects):  # Do this or combine with display?
+def filter_projects(projects):
     """Filter projects to display only those after a certain date."""
-    pass  # Can adjust display to pass in a date, but let date be earliest date of a project for just displaying
-
-
-# On second thought, no - print looks different
+    date_string = input("Show projects that start after date (dd/mm/yy): ")
+    date = datetime.datetime.strptime(date_string, "%d/%m/%Y").date()
+    projects_after_date = [project for project in projects if project.is_after(date)]
+    for project in projects_after_date:
+        print(project)
+    if not projects_after_date:
+        print(f"There are no projects that started after {date.strftime("%d/%m/%Y")}")
 
 
 def add_project():
