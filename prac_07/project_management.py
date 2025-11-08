@@ -8,13 +8,13 @@ import datetime
 
 from prac_07.project import Project
 
-MENU = ("- (L)oad projects"
-        "- (S)ave projects"
-        "- (D)isplay projects"
-        "- (F)ilter projects"
-        "- (A)dd new project"
-        "- (U)pdate project"
-        "- (Q)uit")
+MENU = ("""- (L)oad projects
+- (S)ave projects
+- (D)isplay projects
+- (F)ilter projects
+- (A)dd new project
+- (U)pdate project
+- (Q)uit")""")
 DEFAULT_FILENAME = "projects.txt"
 
 
@@ -47,8 +47,10 @@ def main():
             print("Invalid choice")
         print(MENU)
         choice = input(">>> ").upper()
-    decision = input(f"Would you like to save to {DEFAULT_FILENAME}")
-    # TODO: Do the thing to filter above decision
+    decision = list(input(f"Would you like to save to {DEFAULT_FILENAME} ").upper().split())
+    if "YES" in decision:
+        save_projects(DEFAULT_FILENAME, projects)
+        print(f"Projects saved to {DEFAULT_FILENAME}")
     print("Thank you for using custom-built project management software.")
 
 
@@ -62,21 +64,27 @@ def load_file(filename):
             start_date = datetime.datetime.strptime(parts[1], "%d/%m/%Y").date()
             priority = int(parts[2])
             cost = float(parts[3])
-            completion = float(parts[4])
+            completion = int(parts[4])
             project = Project(parts[0], start_date, priority, cost, completion)
             projects.append(project)
     print(f"Loaded {len(projects)} projects from {filename}")
     return sorted(projects)
 
 
-def save_projects(filename, projects):
+def save_projects(filename, projects):  # filename
     """Save projects to a chosen file."""
-    pass
+    with open(filename, "w", encoding="utf-8-sig") as out_file:
+        print("Name	Start Date	Priority	Cost Estimate	Completion Percentage", file=out_file)
+        for project in projects:
+            print(
+                f"{project.name}\t{project.start_date.strftime("%d/%m/%Y")}\t{project.priority}\t{project.cost}\t"
+                f"{project.completion}", file=out_file)
 
 
 def display_projects(projects):
     """Display projects, sorted and in categories of completion status."""
-    pass
+    for project in projects:
+        print(f"  {project}")
 
 
 def filter_projects(projects):  # Do this or combine with display?
