@@ -4,26 +4,25 @@ Estimated: 3 hrs
 Actual:    1 hr, 23 min
 """
 import datetime
+from operator import attrgetter
 
 from prac_07.project import Project
 
 MENU = ("""- (L)oad projects
 - (S)ave projects
 - (D)isplay projects
-- (F)ilter projects
+- (F)ilter projects by date
 - (A)dd new project
 - (U)pdate project
-- (Q)uit")""")
+- (Q)uit""")
 DEFAULT_FILENAME = "projects.txt"
 LOWEST_PRIORITY = 10
 
 
-# TODO: Complete all functions
-
 def main():
     """Load default projects file, cycle through a menu, provide option to save file upon completion."""
-    projects = load_file(DEFAULT_FILENAME)
     print("Welcome to Pythonic Project Management")
+    projects = load_file(DEFAULT_FILENAME)
     print(MENU)
     choice = input(">>> ").upper()
     while choice != "Q":
@@ -100,7 +99,8 @@ def filter_projects(projects):
     """Filter projects to display only those after a certain date."""
     date_string = input("Show projects that start after date (dd/mm/yy): ")
     date = datetime.datetime.strptime(date_string, "%d/%m/%Y").date()
-    projects_after_date = [project for project in projects if project.is_after(date)]
+    projects_after_date = [project for project in sorted(projects, key=attrgetter('start_date')) if
+                           project.is_after(date)]
     for project in projects_after_date:
         print(project)
     if not projects_after_date:
@@ -114,7 +114,7 @@ def get_new_project():
     start_date_string = input("Start date (dd/mm/yy): ")
     start_date = datetime.datetime.strptime(start_date_string, "%d/%m/%Y").date()
     priority = get_valid_input("Priority: ", LOWEST_PRIORITY)
-    cost = get_valid_float("Cost estimate: ")
+    cost = get_valid_float("Cost estimate: $")
     completion = get_valid_input("Percent complete: ", 100)
     return Project(name, start_date, priority, cost, completion)
 
