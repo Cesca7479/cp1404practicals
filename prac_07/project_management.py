@@ -40,14 +40,15 @@ def main():
         elif choice == "F":
             filter_projects(projects)
         elif choice == "A":
-            add_project()
+            new_project = get_new_project()
+            projects.append(new_project)
         elif choice == "U":
             update_project(projects)
         else:
             print("Invalid choice")
         print(MENU)
         choice = input(">>> ").upper()
-    decision = list(input(f"Would you like to save to {DEFAULT_FILENAME} ").upper().split())
+    decision = list(input(f"Would you like to save to {DEFAULT_FILENAME}? ").upper().split())
     if "YES" in decision:
         save_projects(DEFAULT_FILENAME, projects)
         print(f"Projects saved to {DEFAULT_FILENAME}")
@@ -106,16 +107,37 @@ def filter_projects(projects):
         print(f"There are no projects that started after {date.strftime("%d/%m/%Y")}")
 
 
-def add_project():
+def get_new_project():
     """Add a new project to the list."""
-    pass
+    print("Let's add a new project")
+    name = input("Name: ")
+    start_date_string = input("Start date (dd/mm/yy): ")
+    start_date = datetime.datetime.strptime(start_date_string, "%d/%m/%Y").date()
+    priority = get_valid_input("Priority: ", LOWEST_PRIORITY)
+    cost = get_valid_float("Cost estimate: ")
+    completion = get_valid_input("Percent complete: ", 100)
+    return Project(name, start_date, priority, cost, completion)
+
+
+def get_valid_float(string):
+    valid_input = False
+    while not valid_input:
+        try:
+            number = float(input(string))
+            if number < 0:
+                print("Number must be positive")
+            else:
+                valid_input = True
+        except ValueError:
+            print("Invalid Number")
+    return number
 
 
 def update_project(projects):
     """Update a project's completion level."""
     for i, project in enumerate(projects):
         print(i, project)
-    choice = get_valid_input("Project Choice: ", len(projects) - 1)
+    choice = get_valid_input("Project choice: ", len(projects) - 1)
     print(projects[choice])
     new_percentage = get_valid_input("New Percentage: ", 100)
     new_priority = get_valid_input("New Priority: ", LOWEST_PRIORITY)
@@ -130,7 +152,7 @@ def get_valid_input(string, maximum):
     valid_input = False
     while not valid_input:
         input_string = input(string)
-        if input_string == "" and string != "Project Choice: ":
+        if input_string == "" and string != "Project choice: " and string != "Priority: " and string != "Percent complete: ":
             return None
         else:
             try:

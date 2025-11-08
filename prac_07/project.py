@@ -19,7 +19,7 @@ class Project:
     def __repr__(self):
         """Return attributes in a formatted string."""
         return (f"{self.name}, start: {self.start_date.strftime("%d/%m/%Y")}, priority {self.priority}, "
-                f"estimate: {self.cost}, completion: {self.completion}%")
+                f"estimate: ${self.cost:.2f}, completion: {self.completion}%")
 
     def __lt__(self, other):
         """Determine an order of projects, by priority."""
