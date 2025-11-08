@@ -3,7 +3,6 @@ Run through a menu that allows a user to load, display, filter, add and update p
 Estimated: 3 hrs
 Actual:    1 hr, 23 min
 """
-# Do I sort each time, or only when I display or save?
 import datetime
 
 from prac_07.project import Project
@@ -16,6 +15,7 @@ MENU = ("""- (L)oad projects
 - (U)pdate project
 - (Q)uit")""")
 DEFAULT_FILENAME = "projects.txt"
+LOWEST_PRIORITY = 10
 
 
 # TODO: Complete all functions
@@ -29,9 +29,9 @@ def main():
     while choice != "Q":
         if choice == "L":
             filename = input("Enter a file to load projects from: ")
-            new_projects = load_file(filename)
-            projects.append(new_projects)
-            projects.sort()
+            # new_projects = load_file(filename)
+            # projects.append(new_projects)  # Do you want to keep the old projects, or just use new ones?
+            projects = load_file(filename)
         elif choice == "S":
             filename = input("Enter a file to save projects to: ")
             save_projects(filename, projects)
@@ -68,7 +68,7 @@ def load_file(filename):
             project = Project(parts[0], start_date, priority, cost, completion)
             projects.append(project)
     print(f"Loaded {len(projects)} projects from {filename}")
-    return sorted(projects)
+    return projects
 
 
 def save_projects(filename, projects):  # filename
@@ -83,8 +83,8 @@ def save_projects(filename, projects):  # filename
 
 def display_projects(projects):
     """Display projects, sorted and in categories of completion status."""
-    incomplete_projects = [project for project in projects if not project.is_complete()]
-    completed_projects = [project for project in projects if project.is_complete()]
+    incomplete_projects = [project for project in sorted(projects) if not project.is_complete()]
+    completed_projects = [project for project in sorted(projects) if project.is_complete()]
     if incomplete_projects:
         print("Incomplete projects:")
         for project in incomplete_projects:
@@ -113,7 +113,35 @@ def add_project():
 
 def update_project(projects):
     """Update a project's completion level."""
-    pass
+    for i, project in enumerate(projects):
+        print(i, project)
+    choice = get_valid_input("Project Choice: ", len(projects) - 1)
+    print(projects[choice])
+    new_percentage = get_valid_input("New Percentage: ", 100)
+    new_priority = get_valid_input("New Priority: ", LOWEST_PRIORITY)
+    if new_percentage:
+        projects[choice].completion = new_percentage
+    if new_priority:
+        projects[choice].priority = new_priority
+
+
+def get_valid_input(string, maximum):
+    """Get a valid input from the user, which must be less than the maximum or blank"""
+    valid_input = False
+    while not valid_input:
+        input_string = input(string)
+        if input_string == "" and string != "Project Choice: ":
+            return None
+        else:
+            try:
+                number = int(input_string)
+                if number < 0 or number > maximum:
+                    print(f"Number must be larger than 0 and smaller than {maximum}")
+                else:
+                    valid_input = True
+            except ValueError:
+                print("Invalid Number")
+    return number  # Nesting is REALLY terrible here.
 
 
 main()
