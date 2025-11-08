@@ -8,13 +8,13 @@ from operator import attrgetter
 
 from prac_07.project import Project
 
-MENU = ("""- (L)oad projects
+MENU = """- (L)oad projects
 - (S)ave projects
 - (D)isplay projects
 - (F)ilter projects by date
 - (A)dd new project
 - (U)pdate project
-- (Q)uit""")
+- (Q)uit"""
 DEFAULT_FILENAME = "projects.txt"
 LOWEST_PRIORITY = 10
 
