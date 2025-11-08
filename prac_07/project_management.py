@@ -1,7 +1,7 @@
 """
 Run through a menu that allows a user to load, display, filter, add and update projects.
 Estimated: 3 hrs
-Actual:    1 hr, 23 min
+Actual:    2hr, 44 min
 """
 import datetime
 from operator import attrgetter
