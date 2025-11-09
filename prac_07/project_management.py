@@ -131,6 +131,7 @@ def get_valid_string(prompt):
 
 
 def get_valid_date(prompt):
+    """Get a valid date string from the user, return in date format."""
     valid_date = False
     while not valid_date:
         date_string = input(prompt)
