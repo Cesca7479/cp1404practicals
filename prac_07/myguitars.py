@@ -17,7 +17,7 @@ def main():
 
 
 def get_guitars(guitars):
-    """Get new guitars from user"""
+    """Get new guitars from user."""
     name = input("Name: ")
     while name != "":
         year = get_valid_year()
@@ -81,7 +81,7 @@ def display_guitars(guitars):
 
 
 def save_guitars(guitars, filename):
-    """Save guitars to file in csv format"""
+    """Save guitars to file in csv format."""
     with open(filename, "w", encoding="utf-8-sig") as out_file:
         for guitar in guitars:
             print(f"{guitar.name},{guitar.year},{guitar.cost}", file=out_file)
