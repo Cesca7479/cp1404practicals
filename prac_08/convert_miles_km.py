@@ -5,6 +5,8 @@ from kivy.app import App
 from kivy.lang import Builder
 from kivy.properties import StringProperty
 
+CONVERSION_CONSTANT = 1.60934
+
 
 class ConvertMilesKM(App):
     output = StringProperty()
@@ -17,7 +19,7 @@ class ConvertMilesKM(App):
 
     def convert_miles_km(self, value):
         try:
-            result = float(value) * 1.60934
+            result = float(value) * CONVERSION_CONSTANT
             self.root.ids.output_label.text = str(result)
         except ValueError:
             self.root.ids.output_label.text = '0.0'
@@ -29,6 +31,7 @@ class ConvertMilesKM(App):
             value = 0
         result = value + increment
         self.root.ids.input_number.text = str(result)
+        self.convert_miles_km(result)
 
 
 ConvertMilesKM().run()
