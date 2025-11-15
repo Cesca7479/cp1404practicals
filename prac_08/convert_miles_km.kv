@@ -7,7 +7,6 @@ BoxLayout:
             font_size: 50
             id: input_number
             multiline: False
-            text: '34'
             on_text: app.convert_miles_km(input_number.text)
         BoxLayout:
             orientation: "vertical"
@@ -28,3 +27,4 @@ BoxLayout:
         color: (1, 1, 0, 1)
         id: output_label
         font_size: 50
+        text: app.output_km
