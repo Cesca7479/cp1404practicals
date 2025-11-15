@@ -17,21 +17,21 @@ class ConvertMilesKM(App):
         self.output = "Enter a number in miles to convert to kilometres"
         return self.root
 
-    def convert_miles_km(self, value):
-        try:
-            result = float(value) * CONVERSION_CONSTANT
-            self.root.ids.output_label.text = str(result)
-        except ValueError:
-            self.root.ids.output_label.text = '0.0'
+    def convert_miles_km(self, text):
+        result = self.convert_to_number(text) * CONVERSION_CONSTANT
+        self.root.ids.output_label.text = str(result)
 
     def handle_increment(self, input_text, increment):
-        try:
-            value = float(input_text)
-        except ValueError:
-            value = 0
-        result = value + increment
+        result = self.convert_to_number(input_text) + increment
         self.root.ids.input_number.text = str(result)
         self.convert_miles_km(result)
+
+    @staticmethod
+    def convert_to_number(text):
+        try:
+            return float(text)
+        except ValueError:
+            return 0.0
 
 
 ConvertMilesKM().run()
