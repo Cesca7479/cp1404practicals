@@ -9,7 +9,7 @@ CONVERSION_CONSTANT = 1.60934
 
 
 class ConvertMilesKM(App):
-    """Run an app that will convert Miles to km."""
+    """Run an app that will convert miles to km."""
     output_km = StringProperty()
 
     def build(self):
@@ -19,7 +19,7 @@ class ConvertMilesKM(App):
         return self.root
 
     def convert_miles_km(self, text):
-        """Convert Miles to km."""
+        """Convert miles to km."""
         result = self.convert_to_number(text) * CONVERSION_CONSTANT
         self.output_km = str(result)
 

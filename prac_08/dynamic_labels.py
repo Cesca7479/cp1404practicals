@@ -11,12 +11,12 @@ class DynamicLabels(App):
     """Create a label for each name in a list."""
 
     def __init__(self, **kwargs):
-        """Initialise the App."""
+        """Initialise the Dynamic Labels App."""
         super().__init__(**kwargs)
-        self.names = ["Francesca", "Jamie", "Keya", "Kate"]
+        self.names = ["Bob", "Sam", "Jeremy", "Arnold"]
 
     def build(self):
-        """Build the App."""
+        """Build the Dynamic Labels App."""
         self.title = "Dynamic Labels"
         self.root = Builder.load_file('dynamic_labels.kv')
         self.create_labels()
