@@ -23,9 +23,9 @@ class ConvertMilesKM(App):
         result = self.convert_to_number(text) * CONVERSION_CONSTANT
         self.output_km = str(result)
 
-    def handle_increment(self, input_text, increment):
+    def handle_increment(self, input_text, change):
         """Handle up and down buttons by incrementing the input value."""
-        result = self.convert_to_number(input_text) + increment
+        result = self.convert_to_number(input_text) + change
         self.root.ids.input_number.text = str(result)
         self.convert_miles_km(result)
 
