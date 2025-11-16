@@ -10,6 +10,7 @@ class UnreliableCar(Car):
     """Represent an Unreliable Car Object."""
 
     def __init__(self, name, fuel, reliability=0):
+        """Initialise Unreliable Car."""
         super().__init__(name, fuel)
         self.reliability = reliability
 
@@ -18,6 +19,7 @@ class UnreliableCar(Car):
         return f"{super().__str__()}, reliability: {self.reliability}%"
 
     def drive(self, distance):
+        """Drive Unreliable Car depending on its reliability."""
         if randint(0, 100) < self.reliability:
             distance_driven = super().drive(distance)
         else:

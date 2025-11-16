@@ -8,6 +8,7 @@ ITERATIONS = 1000000
 
 
 def main():
+    """Test Unreliable Car Class."""
     bad_car = UnreliableCar("Bad Car", ITERATIONS, 30)
     for i in range(ITERATIONS):
         bad_car.drive(1)
