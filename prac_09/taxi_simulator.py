@@ -18,9 +18,9 @@ def main():
     choice = input(">>> ").lower()
     while choice != "q":
         if choice == "c":
-            pass
+            current_taxi = choose_taxi(taxis)
         elif choice == "d":
-            drive_taxi(current_taxi)
+            bill += drive_taxi(current_taxi)
         else:
             print("Invalid option")
         print(f"Bill to date: ${bill}")
@@ -33,6 +33,11 @@ def choose_taxi(taxis):
     print("Taxis available:")
     for i, taxi in enumerate(taxis):
         print(f"{i} - {taxi}")
+    choice = int(input("Choose taxi: "))
+    if choice < 0 or choice >= len(taxis):
+        print("Invalid taxi choice")
+        return None
+    return taxis[choice]
 
 
 def drive_taxi(current_taxi):
@@ -43,6 +48,7 @@ def drive_taxi(current_taxi):
         distance = int(input("Drive how far? "))
         current_taxi.drive(distance)
         print(f"Your {current_taxi.name} trip cost you ${current_taxi.get_fair()}")
+    return current_taxi.get_fare()
 
 
 main()
