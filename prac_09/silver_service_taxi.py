@@ -7,12 +7,13 @@ from taxi import Taxi
 
 class SilverServiceTaxi(Taxi):
     """Represent Silver Service Taxi Object."""
-    flagfall = 4.50
+    flagfall = 4.5
 
     def __init__(self, name, fuel, fanciness=0.0):
         """Initialise Silver Service Taxi Object."""
         super().__init__(name, fuel)
-        self.price_per_km = Taxi.price_per_km * fanciness
+        self.fanciness = fanciness
+        self.price_per_km *= fanciness
 
     def __str__(self):
         """Return formated string."""
