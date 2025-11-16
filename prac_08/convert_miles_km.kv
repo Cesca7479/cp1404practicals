@@ -1,0 +1,30 @@
+BoxLayout:
+    orientation: "vertical"
+    BoxLayout:
+        orientation: "horizontal"
+        TextInput:
+            size_hint_x: 0.8
+            font_size: 50
+            id: input_number
+            multiline: False
+            on_text: app.convert_miles_km(input_number.text)
+        BoxLayout:
+            orientation: "vertical"
+            size_hint_x: 0.2
+            Button:
+                text: "Up"
+                font_size: 40
+                on_press: app.handle_increment(input_number.text, 1)
+            Button:
+                font_size: 40
+                text: "Down"
+                on_press: app.handle_increment(input_number.text, -1)
+#    Button:
+#        font_size: 40
+#        text: "Convert miles to km"
+#        on_press: app.convert_miles_km(input_number.text)
+    Label:
+        color: (1, 1, 0, 1)
+        id: output_label
+        font_size: 50
+        text: app.output_km
