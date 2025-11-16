@@ -6,11 +6,11 @@ from taxi import Taxi
 
 
 class SilverServiceTaxi(Taxi):
-    """Represent Silver Service Taxi Class."""
+    """Represent Silver Service Taxi Object."""
     flagfall = 4.50
 
     def __init__(self, name, fuel, fanciness=0.0):
-        """Initialise Silver Service Taxi Class."""
+        """Initialise Silver Service Taxi Object."""
         super().__init__(name, fuel)
         self.price_per_km = Taxi.price_per_km * fanciness
 
