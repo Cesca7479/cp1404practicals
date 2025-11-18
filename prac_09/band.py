@@ -13,7 +13,7 @@ class Band:
 
     def __str__(self):
         """Return Band name and musicians in the band."""
-        return f"{self.name} ({self.musicians})"
+        return f"{self.name} ({", ".join([musician.__str__() for musician in self.musicians])})"
 
     def add(self, musician):
         """Add Musician to the Band."""
