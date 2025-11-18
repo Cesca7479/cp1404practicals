@@ -4,16 +4,17 @@ Unreliable car test.
 
 from unreliable_car import UnreliableCar
 
-ITERATIONS = 1000000
+ITERATIONS = 100000
 
 
 def main():
     """Test Unreliable Car Class."""
-    bad_car = UnreliableCar("Bad Car", ITERATIONS, 30)
-    for i in range(ITERATIONS):
-        bad_car.drive(1)
-    car_accuracy = 100*(ITERATIONS - bad_car.fuel)/ITERATIONS
-    print(f"Car drove {car_accuracy}% of the time")
+    cars = [UnreliableCar("Bad Car", ITERATIONS, 30), UnreliableCar("Better Car", ITERATIONS, 90)]
+    for car in cars:
+        for i in range(ITERATIONS):
+            car.drive(1)
+        car_reliability = 100 * (ITERATIONS - car.fuel) / ITERATIONS
+        print(f"{car.name} drove {car_reliability}% of the time, reliability was {car.reliability}%")
 
 
 main()
